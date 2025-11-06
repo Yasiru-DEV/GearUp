@@ -1,0 +1,28 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.container { max-width: 980px; }
+/* small helpers for spacing in this simple intern UI */
+.py-4 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+
+/* Landing hero */
+.landing-hero {
+  background: linear-gradient(135deg,#4e54c8 0%, #8f94fb 100%);
+  padding: 60px 0;
+}
+.landing-hero .lead { color: rgba(255,255,255,0.9); }
+
+/* Footer tweaks */
+footer small { opacity: 0.9; }
