@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useCustomer } from '../contexts/CustomerContext';
-import { getOrdersByCustomer, getOrderById } from '../api';
+import { getOrdersByCustomer } from '../api';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function ProfilePage() {
@@ -12,7 +12,7 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const loadOrders = async () => {
+  const loadOrders = useCallback(async () => {
     setErr(null);
     if (!customer) return setErr('Please save customer first.');
     setLoading(true);
@@ -31,11 +31,11 @@ export default function ProfilePage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [customer, location]);
 
   useEffect(() => {
     loadOrders();
-  }, [customer]);
+  }, [loadOrders]);
 
   const handleLogout = () => {
     setCustomer(null);
