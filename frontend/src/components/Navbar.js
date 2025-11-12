@@ -6,7 +6,6 @@ export default function Navbar() {
   const { customer, cartCount } = useCustomer();
   const [count, setCount] = useState(0);
   const [bump, setBump] = useState(false);
-  const location = useLocation();
   const prevCountRef = React.useRef(0);
 
   useEffect(() => {
