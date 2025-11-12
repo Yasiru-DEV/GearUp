@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useCustomer } from '../contexts/CustomerContext';
 
 export default function Navbar() {
   const { customer, cartCount } = useCustomer();
   const [count, setCount] = useState(0);
   const [bump, setBump] = useState(false);
-  const location = useLocation();
   const prevCountRef = React.useRef(0);
 
   useEffect(() => {

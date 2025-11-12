@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { getCartByCustomer, addOrUpdateCartItem, removeCartItem, clearCart } from '../api';
 import { useCustomer } from '../contexts/CustomerContext';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +16,7 @@ export default function CartPage() {
   const [editingItem, setEditingItem] = useState(null); 
   const [modalQty, setModalQty] = useState(1);
 
-  const loadCart = async () => {
+  const loadCart = useCallback(async () => {
     setErr(null);
     if (!customer) return setErr('Please save customer first.');
     setLoading(true);
@@ -29,11 +29,11 @@ export default function CartPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [customer]);
 
   useEffect(() => {
     loadCart();
-  }, [customer]);
+  }, [loadCart]);
 
   
   const openEditModal = (it) => {

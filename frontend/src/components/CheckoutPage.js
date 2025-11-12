@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { getCartByCustomer, createOrder } from '../api';
 import { useCustomer } from '../contexts/CustomerContext';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CheckoutPage() {
   const [cart, setCart] = useState(null);
-  const { customer, setCustomer } = useCustomer();
+  const { customer } = useCustomer();
   const navigate = useNavigate();
   const [delivery, setDelivery] = useState({
     name: '',
@@ -24,7 +24,7 @@ export default function CheckoutPage() {
   const [msg, setMsg] = useState(null);
   const [err, setErr] = useState(null);
 
-  const loadCart = async () => {
+  const loadCart = useCallback(async () => {
     setErr(null);
     if (!customer) return setErr('Please save customer first.');
     
@@ -40,11 +40,11 @@ export default function CheckoutPage() {
       console.error(e);
       setErr('Failed to load cart');
     }
-  };
+  }, [customer]);
 
   useEffect(() => {
     loadCart();
-  }, []);
+  }, [loadCart]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
